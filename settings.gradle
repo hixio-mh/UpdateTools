@@ -1,0 +1,3 @@
+rootProject.name='UpdateTools'
+include ':app'
+include ':example'
