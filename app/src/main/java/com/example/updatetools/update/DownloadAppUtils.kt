@@ -100,7 +100,6 @@ internal object DownloadAppUtils {
             }else{
                 Environment.getExternalStorageDirectory().absolutePath + "/" + packageName
             }
-
         }
 
         // apk 保存名称
