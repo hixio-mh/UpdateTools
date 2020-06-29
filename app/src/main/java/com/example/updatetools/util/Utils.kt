@@ -152,7 +152,7 @@ internal object Utils {
         val fis: InputStream = FileInputStream(filename)
         val buffer = ByteArray(1024)
         val complete: MessageDigest =
-            MessageDigest.getInstance("SHA1") //Java Security name (such as "SHA", "MD5", and so on).
+            MessageDigest.getInstance("MD5") //Java Security name (such as "SHA", "MD5", and so on).
         var numRead: Int
         do {
             numRead = fis.read(buffer)
