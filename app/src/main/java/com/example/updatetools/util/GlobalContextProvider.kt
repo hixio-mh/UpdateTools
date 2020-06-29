@@ -1,4 +1,4 @@
-package util
+package com.example.updatetools.util
 
 import android.content.ContentProvider
 import android.content.ContentValues

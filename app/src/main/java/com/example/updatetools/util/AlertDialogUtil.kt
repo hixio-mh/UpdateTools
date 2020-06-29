@@ -3,6 +3,7 @@ package util
 import android.app.Activity
 import android.app.AlertDialog
 import com.example.updatetools.R
+import com.example.updatetools.util.GlobalContextProvider
 
 /**
  * desc: AlertDialogUtil

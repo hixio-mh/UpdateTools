@@ -9,10 +9,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.widget.Toast
 import extension.no
 import extension.yes
-import update.UpdateAppUtils
-import util.Utils
+import com.example.updatetools.util.Utils
 
 /**
  * desc: UpdateAppReceiver
@@ -51,7 +51,7 @@ internal class UpdateAppReceiver : BroadcastReceiver() {
 
                 // 下载完成
                 if (progress == 100) {
-                    handleDownloadComplete(context, notifyId, nm)
+                    handleDownloadComplete(context, notifyId,nm,UpdateAppUtils.updateInfo.hash)
                 }
             }
 
@@ -65,7 +65,7 @@ internal class UpdateAppReceiver : BroadcastReceiver() {
     /**
      * 下载完成后的逻辑
      */
-    private fun handleDownloadComplete(context: Context, notifyId: Int, nm: NotificationManager?) {
+    private fun handleDownloadComplete(context: Context, notifyId: Int, nm: NotificationManager?,hash:String) {
         // 关闭通知栏
         nm?.let {
             nm.cancel(notifyId)
@@ -73,10 +73,20 @@ internal class UpdateAppReceiver : BroadcastReceiver() {
                 nm.deleteNotificationChannel(notificationChannel)
             }
         }
-
-        // 安装apk
-        DownloadAppUtils.downloadUpdateApkFilePath.isNotEmpty().yes {
-            Utils.installApk(context, DownloadAppUtils.downloadUpdateApkFilePath)
+        if (hash!=null && hash!=""){
+            if (Utils.hashFile(DownloadAppUtils.downloadUpdateApkFilePath,hash)){
+                // 安装apk
+                DownloadAppUtils.downloadUpdateApkFilePath.isNotEmpty().yes {
+                    Utils.installApk(context, DownloadAppUtils.downloadUpdateApkFilePath)
+                }
+            }else{
+                Toast.makeText(context,"文件校验失败",Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            // 安装apk
+            DownloadAppUtils.downloadUpdateApkFilePath.isNotEmpty().yes {
+                Utils.installApk(context, DownloadAppUtils.downloadUpdateApkFilePath)
+            }
         }
     }
 

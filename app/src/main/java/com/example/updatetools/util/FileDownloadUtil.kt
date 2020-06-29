@@ -1,4 +1,4 @@
-package util
+package com.example.updatetools.util
 
 import extension.log
 import extension.yes

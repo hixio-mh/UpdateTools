@@ -1,4 +1,4 @@
-package util
+package com.example.updatetools.util
 
 import android.annotation.SuppressLint
 import android.app.Activity

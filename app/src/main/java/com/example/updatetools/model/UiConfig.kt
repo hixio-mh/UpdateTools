@@ -2,7 +2,7 @@ package com.example.updatetools.model
 
 import com.example.updatetools.R
 import constacne.UiType
-import util.GlobalContextProvider
+import com.example.updatetools.util.GlobalContextProvider
 
 /**
  * desc: UiConfig UI 配置

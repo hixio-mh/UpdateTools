@@ -22,7 +22,7 @@
             android:theme="@style/DialogActivityTheme"/>
 
         <provider
-            android:name="util.GlobalContextProvider"
+            android:name=".util.GlobalContextProvider"
             android:authorities="${applicationId}.cp"
             android:exported="false"
             android:multiprocess="true"/>

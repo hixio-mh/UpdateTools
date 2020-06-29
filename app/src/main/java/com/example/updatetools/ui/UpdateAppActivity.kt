@@ -23,10 +23,10 @@ import extension.visibleOrGone
 import extension.yes
 import com.example.updatetools.update.DownloadAppUtils
 import update.UpdateAppService
-import update.UpdateAppUtils
+import com.example.updatetools.update.UpdateAppUtils
 import util.AlertDialogUtil
-import util.GlobalContextProvider
-import util.Utils
+import com.example.updatetools.util.GlobalContextProvider
+import com.example.updatetools.util.Utils
 
 /**
  * desc: 更新弹窗

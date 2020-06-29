@@ -2,7 +2,7 @@ package com.example.updatetools.model
 
 import com.example.updatetools.R
 import model.UpdateConfig
-import util.GlobalContextProvider
+import com.example.updatetools.util.GlobalContextProvider
 
 /**
  * desc: UpdateInfo
@@ -19,5 +19,7 @@ internal data class UpdateInfo(
     // 更新配置
     var config: UpdateConfig = UpdateConfig(),
     // ui配置
-    var uiConfig: UiConfig = UiConfig()
+    var uiConfig: UiConfig = UiConfig(),
+    //校验用Hash
+    var hash:String = ""
 )

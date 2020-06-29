@@ -1,4 +1,4 @@
-package update
+package com.example.updatetools.update
 
 import extension.log
 import extension.no
@@ -11,10 +11,9 @@ import com.example.updatetools.model.UiConfig
 import model.UpdateConfig
 import com.example.updatetools.model.UpdateInfo
 import com.example.updatetools.ui.UpdateAppActivity
-import com.example.updatetools.update.DownloadAppUtils
-import util.GlobalContextProvider
-import util.SPUtil
-import util.Utils
+import com.example.updatetools.util.GlobalContextProvider
+import com.example.updatetools.util.SPUtil
+import com.example.updatetools.util.Utils
 
 
 /**
@@ -61,6 +60,14 @@ object UpdateAppUtils {
     }
 
     /**
+     * 设置更新标题
+     */
+    fun updateHash(hash: String): UpdateAppUtils {
+        updateInfo.hash = hash
+        return this
+    }
+
+    /**
      * 设置更新内容
      */
     fun updateContent(content: CharSequence): UpdateAppUtils {
@@ -88,7 +95,7 @@ object UpdateAppUtils {
      * 设置下载监听
      */
     fun setUpdateDownloadListener(listener: UpdateDownloadListener?): UpdateAppUtils {
-        this.downloadListener = listener
+        downloadListener = listener
         return this
     }
 
@@ -96,7 +103,7 @@ object UpdateAppUtils {
      * 设置md5校验结果监听
      */
     fun setMd5CheckResultListener(listener: Md5CheckResultListener?): UpdateAppUtils {
-        this.md5CheckResultListener = listener
+        md5CheckResultListener = listener
         return this
     }
 
@@ -104,7 +111,7 @@ object UpdateAppUtils {
      * 设置初始化UI监听
      */
     fun setOnInitUiListener(listener: OnInitUiListener?): UpdateAppUtils {
-        this.onInitUiListener = listener
+        onInitUiListener = listener
         return this
     }
 
@@ -112,7 +119,7 @@ object UpdateAppUtils {
      * 设置 “暂不更新” 按钮点击事件
      */
     fun setCancelBtnClickListener(listener: OnBtnClickListener?): UpdateAppUtils {
-        this.onCancelBtnClickListener = listener
+        onCancelBtnClickListener = listener
         return this
     }
 
@@ -120,7 +127,15 @@ object UpdateAppUtils {
      * 设置 “立即更新” 按钮点击事件
      */
     fun setUpdateBtnClickListener(listener: OnBtnClickListener?): UpdateAppUtils {
-        this.onUpdateBtnClickListener = listener
+        onUpdateBtnClickListener = listener
+        return this
+    }
+
+    /**
+     * 校验 apk
+     */
+    fun addHashApk(hash:String):UpdateAppUtils {
+       updateInfo.hash = hash
         return this
     }
 
@@ -150,6 +165,22 @@ object UpdateAppUtils {
         log("apkVersionCode:$apkVersionCode")
         (apkPath.isNotEmpty()).yes {
             Utils.deleteFile(apkPath)
+        }
+    }
+
+
+
+    /**
+     * 校验 apk
+     */
+    fun hashApk(hush:String) {
+        val apkPath = SPUtil.getString(DownloadAppUtils.KEY_OF_SP_APK_PATH, "")
+        val appVersionCode = Utils.getAPPVersionCode()
+        val apkVersionCode = Utils.getApkVersionCode(apkPath)
+        log("appVersionCode:$appVersionCode")
+        log("apkVersionCode:$apkVersionCode")
+        (apkPath.isNotEmpty()).yes {
+            Utils.hashFile(apkPath,hush)
         }
     }
 

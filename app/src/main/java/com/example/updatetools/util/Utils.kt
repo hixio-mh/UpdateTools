@@ -1,4 +1,4 @@
-package util
+package com.example.updatetools.util
 
 import android.app.ActivityManager
 import android.content.Context
@@ -11,6 +11,10 @@ import androidx.core.content.FileProvider
 import extension.log
 import extension.yes
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
+import java.security.MessageDigest
+import kotlin.experimental.and
 
 
 /**
@@ -124,6 +128,50 @@ internal object Utils {
         } catch (e: Exception) {
             log(e.message)
         }
+    }
+
+
+    /**
+     * 删除文件
+     */
+    fun hashFile(filePath: String?,hash:String?):Boolean {
+        if (filePath == null) {
+            return false
+        }
+        val file = File(filePath)
+        return try {
+            hash == getMD5Checksum(filePath)
+        } catch (e: Exception) {
+            log(e.message)
+            false
+        }
+    }
+
+    @Throws(java.lang.Exception::class)
+    fun createChecksum(filename: String?): ByteArray? {
+        val fis: InputStream = FileInputStream(filename)
+        val buffer = ByteArray(1024)
+        val complete: MessageDigest =
+            MessageDigest.getInstance("SHA1") //Java Security name (such as "SHA", "MD5", and so on).
+        var numRead: Int
+        do {
+            numRead = fis.read(buffer)
+            if (numRead > 0) {
+                complete.update(buffer, 0, numRead)
+            }
+        } while (numRead != -1)
+        fis.close()
+        return complete.digest()
+    }
+
+    @Throws(java.lang.Exception::class)
+    fun getMD5Checksum(filename: String?): String? {
+        val b: ByteArray = createChecksum(filename)!!
+        var result = ""
+        for (i in b.indices) {
+            result += ((b[i] and 0xff.toByte()) + 0x100).toString(16).substring(1)
+        }
+        return result
     }
 
     @JvmStatic

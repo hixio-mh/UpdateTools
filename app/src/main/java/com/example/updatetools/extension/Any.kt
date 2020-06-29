@@ -2,8 +2,8 @@ package extension
 
 import android.util.Log
 import androidx.core.content.ContextCompat
-import update.UpdateAppUtils
-import util.GlobalContextProvider
+import com.example.updatetools.update.UpdateAppUtils
+import com.example.updatetools.util.GlobalContextProvider
 
 /**
  * desc: Any 扩展

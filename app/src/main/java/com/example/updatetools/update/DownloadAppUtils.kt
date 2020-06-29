@@ -11,12 +11,11 @@ import com.liulishuo.filedownloader.FileDownloader
 import extension.log
 import extension.no
 import extension.yes
-import update.UpdateAppUtils
-import util.FileDownloadUtil
-import util.GlobalContextProvider
-import util.SPUtil
+import com.example.updatetools.util.FileDownloadUtil
+import com.example.updatetools.util.GlobalContextProvider
+import com.example.updatetools.util.SPUtil
 import util.SignMd5Util
-import util.Utils
+import com.example.updatetools.util.Utils
 import java.io.File
 
 /**

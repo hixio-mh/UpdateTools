@@ -3,6 +3,7 @@ package util
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.pm.Signature
+import com.example.updatetools.util.Utils
 import java.io.File
 import java.io.IOException
 import java.security.MessageDigest
