@@ -14,6 +14,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import kotlin.experimental.and
 
 
@@ -139,12 +140,15 @@ internal object Utils {
             return false
         }
         val file = File(filePath)
-        return try {
-            hash == getMD5Checksum(filePath)
-        } catch (e: Exception) {
-            log(e.message)
-            false
+        if (file.exists()){
+            return try {
+                hash == md5Byte(filePath)
+            } catch (e: Exception) {
+                log(e.message)
+                false
+            }
         }
+        return false
     }
 
     @Throws(java.lang.Exception::class)
@@ -173,6 +177,31 @@ internal object Utils {
         }
         return result
     }
+
+
+    fun md5Byte(filename: String?): String? {
+        return try {
+            val bytes = createChecksum(filename)
+            // 得到一个信息摘要器
+            val digest = MessageDigest.getInstance("md5")
+            val result = digest.digest(bytes)
+            val buffer = StringBuffer()
+            for (b in result) {
+                val number = (b and 0xff.toByte()).toInt()
+                val str = Integer.toHexString(number)
+                if (str.length == 1) {
+                    buffer.append("0")
+                }
+                buffer.append(str)
+            }
+            // 标准的md5加密后的结果
+            buffer.toString()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
 
     @JvmStatic
     fun getApp(): Context {
