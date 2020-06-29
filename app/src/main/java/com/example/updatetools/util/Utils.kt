@@ -10,9 +10,7 @@ import android.os.Build
 import androidx.core.content.FileProvider
 import extension.log
 import extension.yes
-import java.io.File
-import java.io.FileInputStream
-import java.io.InputStream
+import java.io.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import kotlin.experimental.and
@@ -178,10 +176,32 @@ internal object Utils {
         return result
     }
 
+    fun getBytes(filePath: String?): ByteArray? {
+        var buffer: ByteArray? = null
+        try {
+            val file = File(filePath)
+            val fis = FileInputStream(file)
+            val bos = ByteArrayOutputStream(1000)
+            val b = ByteArray(1000)
+            var n: Int
+            while (fis.read(b).also { n = it } != -1) {
+                bos.write(b, 0, n)
+            }
+            fis.close()
+            bos.close()
+            buffer = bos.toByteArray()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return buffer
+    }
+
 
     fun md5Byte(filename: String?): String? {
         return try {
-            val bytes = createChecksum(filename)
+            val bytes = getBytes(filename)
             // 得到一个信息摘要器
             val digest = MessageDigest.getInstance("md5")
             val result = digest.digest(bytes)
