@@ -140,7 +140,7 @@ internal object Utils {
         val file = File(filePath)
         if (file.exists()){
             return try {
-                hash == md5Byte(filePath)
+                hash == HashTools.getFileHash(filePath)
             } catch (e: Exception) {
                 log(e.message)
                 false
@@ -149,78 +149,6 @@ internal object Utils {
         return false
     }
 
-    @Throws(java.lang.Exception::class)
-    fun createChecksum(filename: String?): ByteArray? {
-        val fis: InputStream = FileInputStream(filename)
-        val buffer = ByteArray(1024)
-        val complete: MessageDigest =
-            MessageDigest.getInstance("MD5") //Java Security name (such as "SHA", "MD5", and so on).
-        var numRead: Int
-        do {
-            numRead = fis.read(buffer)
-            if (numRead > 0) {
-                complete.update(buffer, 0, numRead)
-            }
-        } while (numRead != -1)
-        fis.close()
-        return complete.digest()
-    }
-
-    @Throws(java.lang.Exception::class)
-    fun getMD5Checksum(filename: String?): String? {
-        val b: ByteArray = createChecksum(filename)!!
-        var result = ""
-        for (i in b.indices) {
-            result += ((b[i] and 0xff.toByte()) + 0x100).toString(16).substring(1)
-        }
-        return result
-    }
-
-    fun getBytes(filePath: String?): ByteArray? {
-        var buffer: ByteArray? = null
-        try {
-            val file = File(filePath)
-            val fis = FileInputStream(file)
-            val bos = ByteArrayOutputStream(1000)
-            val b = ByteArray(1000)
-            var n: Int
-            while (fis.read(b).also { n = it } != -1) {
-                bos.write(b, 0, n)
-            }
-            fis.close()
-            bos.close()
-            buffer = bos.toByteArray()
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return buffer
-    }
-
-
-    fun md5Byte(filename: String?): String? {
-        return try {
-            val bytes = getBytes(filename)
-            // 得到一个信息摘要器
-            val digest = MessageDigest.getInstance("md5")
-            val result = digest.digest(bytes)
-            val buffer = StringBuffer()
-            for (b in result) {
-                val number = (b and 0xff.toByte()).toInt()
-                val str = Integer.toHexString(number)
-                if (str.length == 1) {
-                    buffer.append("0")
-                }
-                buffer.append(str)
-            }
-            // 标准的md5加密后的结果
-            buffer.toString()
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-            null
-        }
-    }
 
 
     @JvmStatic
