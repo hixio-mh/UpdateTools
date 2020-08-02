@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.check_md5_demo_activity.*
-import listener.Md5CheckResultListener
-import model.UpdateConfig
-import update.UpdateAppUtils
+import com.example.updatetools.listener.Md5CheckResultListener
+import com.example.updatetools.model.UpdateConfig
+import com.example.updatetools.update.UpdateAppUtils
 
 /**
  * desc: md5校验示例

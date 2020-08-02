@@ -10,13 +10,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.updatetools.model.UiConfig
 import constacne.DownLoadBy
-import constacne.UiType
+import com.example.updatetools.constacne.UiType
 import kotlinx.android.synthetic.main.activity_main.*
-import listener.OnBtnClickListener
-import listener.OnInitUiListener
-import listener.UpdateDownloadListener
-import model.UpdateConfig
-import update.UpdateAppUtils
+import com.example.updatetools.listener.OnBtnClickListener
+import com.example.updatetools.listener.OnInitUiListener
+import com.example.updatetools.listener.UpdateDownloadListener
+import com.example.updatetools.model.UpdateConfig
+import com.example.updatetools.update.UpdateAppUtils
 
 
 class MainActivity : AppCompatActivity() {

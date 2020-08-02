@@ -6,11 +6,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.updatetools.model.UiConfig;
 import org.jetbrains.annotations.NotNull;
-import constacne.UiType;
-import listener.Md5CheckResultListener;
-import listener.UpdateDownloadListener;
-import model.UpdateConfig;
-import update.UpdateAppUtils;
+import com.example.updatetools.constacne.UiType;
+import com.example.updatetools.listener.Md5CheckResultListener;
+import com.example.updatetools.listener.UpdateDownloadListener;
+import com.example.updatetools.model.UpdateConfig;
+import com.example.updatetools.update.UpdateAppUtils;
 
 /**
  * desc: java使用实例
